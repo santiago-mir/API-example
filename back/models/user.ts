@@ -1,13 +1,12 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "./index";
+import { sequelize } from "../db/index";
 
 export class User extends Model {}
 User.init(
   {
     userName: { type: DataTypes.STRING },
-    birthday: { type: DataTypes.DATE },
-    lastName: { type: DataTypes.STRING },
-    unDato: { type: DataTypes.STRING },
+    biography: { type: DataTypes.STRING },
+    imgData: { type: DataTypes.STRING },
   },
   {
     sequelize,
