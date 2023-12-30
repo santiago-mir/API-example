@@ -14,11 +14,23 @@ function main() {
     event.preventDefault();
     let nameValue = event.target.name.value;
     let bioValue = event.target.bio.value;
-    let data = {
-      nameValue,
-      bioValue,
-      imgData,
-    };
+    fetch("/profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nameValue,
+        bioValue,
+        imgData,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
   });
 }
 

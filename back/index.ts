@@ -1,17 +1,20 @@
 import * as express from "express";
 import { sequelize } from "./db";
 import { User } from "./models/models";
+import * as cors from "cors";
 import * as path from "path";
 import { sync } from "./db/sync";
 import { UserController } from "./controllers/user-controller";
+
 const app = express();
-app.use(express.json());
+app.use(cors());
+app.use(express.json({ limit: "50mb" }));
 const port = 3002;
 // sync();
 app.post("/profile", async (req, res) => {
-  const { name, bio, imgData } = req.body;
-  const createUser = await UserController.createUser(name, bio, imgData);
-  res.json({ message: "user creado", createUser });
+  const { nameValue, bioValue, imgData } = req.body;
+  const newUser = await UserController.createUser(nameValue, bioValue, imgData);
+  res.json(newUser);
 });
 
 app.use(express.static(path.join(__dirname, "../dist")));
